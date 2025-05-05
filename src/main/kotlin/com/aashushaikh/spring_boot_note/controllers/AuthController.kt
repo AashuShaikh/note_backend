@@ -30,7 +30,7 @@ class AuthController(
         val refreshToken: String
     )
 
-    @CrossOrigin(origins = ["http://localhost:3000"])
+    @CrossOrigin(origins = ["*"])
     @PostMapping("/register")
     fun register(
         @RequestBody body: AuthRequest
@@ -38,7 +38,7 @@ class AuthController(
         authService.register(email = body.email, password = body.password)
     }
 
-    @CrossOrigin(origins = ["http://localhost:3000"])
+    @CrossOrigin(origins = ["*"])
     @PostMapping("/login")
     fun login(
         @RequestBody body: AuthRequest
@@ -46,7 +46,7 @@ class AuthController(
         return authService.login(email = body.email, password = body.password)
     }
 
-    @CrossOrigin(origins = ["http://localhost:3000"])
+    @CrossOrigin(origins = ["*"])
     @PostMapping("/refresh")
     fun refresh(
         @RequestBody body: RefreshRequest

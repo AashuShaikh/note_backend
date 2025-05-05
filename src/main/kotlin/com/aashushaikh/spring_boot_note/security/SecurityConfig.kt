@@ -13,6 +13,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.web.servlet.config.annotation.CorsRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @Configuration
 class SecurityConfig(
@@ -41,13 +43,14 @@ class SecurityConfig(
                     .authenticationEntryPoint(HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
             }
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
+//            .cors { it.disable() }
             .build()
     }
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val config = CorsConfiguration()
-        config.allowedOrigins = listOf("http://localhost:3000") // frontend origin
+        config.allowedOrigins = listOf("*") // frontend origin
         config.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS") // include OPTIONS!
         config.allowedHeaders = listOf("*") // allow all headers
         config.allowCredentials = true // allow cookies/authorization headers
@@ -56,6 +59,14 @@ class SecurityConfig(
         source.registerCorsConfiguration("/**", config)
         return source
     }
+
+//    override fun addCorsMappings(registry: CorsRegistry) {
+//        registry.addMapping("/**")
+//            .allowedOrigins("https://your-frontend-domain.com")
+//            .allowedMethods("*")
+//            .allowedHeaders("*")
+//            .allowCredentials(true)
+//    }
 
 
 }

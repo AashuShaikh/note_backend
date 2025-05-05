@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 import java.lang.IllegalArgumentException
 import java.time.Instant
 
-@CrossOrigin(origins = ["http://localhost:3000"])
+@CrossOrigin(origins = ["*"])
 @RestController //tells that this class is a Rest Controller
 @RequestMapping("/notes") //This tells that this class will handle requests from the /notes endpoint eg: https://sample.com/notes
 class NoteController(
